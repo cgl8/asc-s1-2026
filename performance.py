@@ -1,6 +1,7 @@
 import subprocess
 import sys
 filename = "./ts/performance.hybrid"
+times  = []
 for clause_length in range(2, 100):
     file = open(filename, 'w')
     file.write("p hybrid " + str(clause_length) + " 1\n")
@@ -20,4 +21,9 @@ for clause_length in range(2, 100):
         exit(1)
     #print(afsat.stderr)
     time = afsat.stderr.strip().split('\n')[-1]
+    time = time.split()[-1]
     print(time)
+    times.append(time)
+print(times)
+with open("times.txt", 'w') as f:
+    f.writelines(times)
